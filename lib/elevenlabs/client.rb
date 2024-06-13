@@ -8,6 +8,7 @@ module Elevenlabs
     
     ELEVENLABS_FQDN = 'https://api.elevenlabs.io'
     DEFAULT_STABILITY = 0.5
+    DEFAULT_STYLE = 0.5
     DEFAULT_MODEL = 'eleven_monolingual_v1'
     attr_accessor :api_key
 
@@ -17,14 +18,15 @@ module Elevenlabs
       @api_key = api_key
     end
 
-    def text_to_speech(voice_id:, optimize_streaming_latency: 0, text:, stability: DEFAULT_STABILITY, model: DEFAULT_MODEL, stream: false)
+    def text_to_speech(voice_id:, optimize_streaming_latency: 0, text:, style: DEFAULT_STYLE, stability: DEFAULT_STABILITY, model: DEFAULT_MODEL, stream: false)
       
       body = {
         text: text,
         model_id: model,
         voice_settings: {
           stability: stability,
-          similarity_boost: 0
+          similarity_boost: 0,
+          style: style
         }
       }
       url_path = stream ? "#{ELEVENLABS_FQDN}/v1/text-to-speech/#{voice_id}/stream" : "#{ELEVENLABS_FQDN}/v1/text-to-speech/#{voice_id}"
